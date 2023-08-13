@@ -1,0 +1,2 @@
+# biggquery_console_supporter
+BigQueryのコンソールを使いやすくするChrome拡張機能
