@@ -17,8 +17,8 @@ document.body.addEventListener("click", (event) => {
 
   // バリデーションメッセージを含む要素を取得する
   const messageElement = queryValidationStatusElement.querySelectorAll(
-    ".cfc-truncated-text, .ng-star-inserted"
-  );
+    ".cfc-truncated-text.ng-star-inserted"
+  )[0];
 
   copyElementTextToClipboard(messageElement);
 });
@@ -38,6 +38,7 @@ const findParentElementByTagName = (element, targetTagName) => {
 	HTMLはタグ名を大文字小文字で区別しないが、JSの .tagName プロパティによって取得されるタグ名は大文字小文字が区別されるため
 	*/
   if (element.tagName.toLowerCase() === targetTagName.toLowerCase()) {
+    console.log(element);
     return element;
   }
 
@@ -57,5 +58,5 @@ const copyElementTextToClipboard = (element) => {
 
   if (!element) return;
 
-  navigator.clipboard.writeText(element.textContent);
+  navigator.clipboard.writeText(element.textContent.trim());
 };
