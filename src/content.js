@@ -38,7 +38,6 @@ const findParentElementByTagName = (element, targetTagName) => {
 	HTMLはタグ名を大文字小文字で区別しないが、JSの .tagName プロパティによって取得されるタグ名は大文字小文字が区別されるため
 	*/
   if (element.tagName.toLowerCase() === targetTagName.toLowerCase()) {
-    console.log(element);
     return element;
   }
 
