@@ -1,47 +1,19 @@
-// 取得したいDOM（この配下にアイコンのボタンとバリデーションメッセージが含まれる）
-const targetSelector = "query-validation-status";
+// // 取得したいDOM（この配下にアイコンのボタンとバリデーションメッセージが含まれる）
+// const targetSelector = "query-validation-status";
 
 // const onTagAppear = (tagElement) => {
 //   alert("タグが現れた");
 // };
 
-// MutationObserver の設定
-const observer = new MutationObserver((mutationsList) => {
-  setTimeout(() => {
-    mutationsList.forEach((mutation) => {
-      // 変更が子孫ノードの追加であるかを確認
-      if (mutation.type === "childList" && mutation.addedNodes.length > 0) {
-        // 追加されたノードの中からBigQuery
-        const addedNodes = Array.from(mutation.addedNodes);
-        const targetElement = addedNodes.find((node) => {
-          console.log(node.classList);
-          return (
-            node.classList &&
-            node.classList.contains("cfc-action-bar-content-right")
-          );
-        });
-
-        if (targetElement) {
-          alert("指定の要素が追加されました");
-        }
-      }
-      // alert(mutation.type);
-      // alert(mutation.addNodes);
-      // alert(mutation.target);
-    });
-  }, 3000);
+document.body.addEventListener("click", (event) => {
+  console.log(event);
+  // クリックされた要素がボタンの時だけ処理を実行する
+  if (event.target && event.target.tagName === "BUTTON") {
+    alert("ボタンがクリックされました");
+  }
 });
 
-// 監視を開始
-window.addEventListener("load", () => {
-  alert("監視start");
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true,
-  });
-});
-
-// クリップボードにクエリバリデーションのメッセージをコピーする
+// // クリップボードにクエリバリデーションのメッセージをコピーする
 // const copyMessage = () => {
 //   // ChromeでClipboard APIに対応しなくなった場合に、エラーを回避するため
 //   if (!navigator.clipboard) {
@@ -67,7 +39,7 @@ window.addEventListener("load", () => {
 //   if ((event.ctrlKey || event.metaKey) && event.key === "b") copyMessage();
 // });
 
-// ページ内の全ての button タグを取得
+// // ページ内の全ての button タグを取得
 // const allButtons = window.addEventListener("load", () => {
 //   alert("OK");
 //   return document.querySelectorAll("button");
