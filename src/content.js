@@ -1,25 +1,26 @@
-// クリップボードにクエリバリデーションのメッセージをコピーする
-const copyMessage = () => {
-  // ChromeでClipboard APIに対応しなくなった場合に、エラーを回避するため
-  if (!navigator.clipboard) {
-    return;
-  }
+const utility = require("./utility.js");
 
-  // query-validation-status のカスタムタグを取得する
-  const queryValidationStatus = document.querySelector(
-    "query-validation-status"
+document.body.addEventListener("click", (event) => {
+  // 取得したいカスタムタグ（この配下にアイコンのボタンとバリデーションメッセージが含まれる）
+  const targetTag = "query-validation-status";
+  // クリックされた要素
+  const clickedElement = event.target;
+
+  /*
+  クリックされた要素より上位の query-validation-status タグを取得する
+  これによって、複数存在する中から目的のタグだけを取得できる
+  */
+  const queryValidationStatusElement = utility.findParentElementByTagName(
+    clickedElement,
+    targetTag
   );
 
-  if (!queryValidationStatus) return;
+  if (!queryValidationStatusElement) return;
 
-  // クエリバリデーションのテキストを取得する
-  const validationMessage =
-    queryValidationStatus.querySelector("div > div").textContent;
+  // バリデーションメッセージを含む要素を取得する
+  const messageElement = queryValidationStatusElement.querySelectorAll(
+    ".cfc-truncated-text, .ng-star-inserted"
+  );
 
-  navigator.clipboard.writeText(validationMessage);
-};
-
-document.addEventListener("keydown", (event) => {
-  // Windows: Ctrl + B もしくは MacOS: Command + B キーが押されていると発火する
-  if ((event.ctrlKey || event.metaKey) && event.key === "b") copyMessage();
+  utility.copyElementTextToClipboard(messageElement);
 });
