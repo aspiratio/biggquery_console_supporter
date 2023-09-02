@@ -7,17 +7,35 @@ const targetSelector = "query-validation-status";
 
 // MutationObserver の設定
 const observer = new MutationObserver((mutationsList) => {
-  mutationsList.forEach((mutation) => {
-    alert(mutation.type);
-    alert(mutation.addNodes);
-    alert(mutation.target);
-  });
+  setTimeout(() => {
+    mutationsList.forEach((mutation) => {
+      // 変更が子孫ノードの追加であるかを確認
+      if (mutation.type === "childList" && mutation.addedNodes.length > 0) {
+        // 追加されたノードの中からBigQuery
+        const addedNodes = Array.from(mutation.addedNodes);
+        const targetElement = addedNodes.find((node) => {
+          console.log(node.classList);
+          return (
+            node.classList &&
+            node.classList.contains("cfc-action-bar-content-right")
+          );
+        });
+
+        if (targetElement) {
+          alert("指定の要素が追加されました");
+        }
+      }
+      // alert(mutation.type);
+      // alert(mutation.addNodes);
+      // alert(mutation.target);
+    });
+  }, 3000);
 });
 
 // 監視を開始
 window.addEventListener("load", () => {
-  alert("start");
-  observer.observe(document.documentElement, {
+  alert("監視start");
+  observer.observe(document.body, {
     childList: true,
     subtree: true,
   });
