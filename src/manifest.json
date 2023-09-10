@@ -3,7 +3,7 @@
   "name": "BigQuery console supporter",
   "version": "1.0",
   "description": "Copy query-validation-status text from BigQuery Web Console.",
-  "permissions": ["activeTab"],
+  "permissions": ["clipboardWrite"],
   "icons": {
     "16": "icon.png",
     "48": "icon.png",
