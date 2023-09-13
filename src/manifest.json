@@ -4,6 +4,7 @@
   "version": "1.0",
   "description": "Copy query-validation-status text from BigQuery Web Console.",
   "permissions": ["clipboardWrite"],
+  "host_permissions": ["https://console.cloud.google.com/bigquery*"],
   "icons": {
     "16": "icon.png",
     "48": "icon.png",
